@@ -4,8 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BarrackUnit.h"
-#include "MyCharacterUnit.h"
+#include "MyCharacter.h"
 #include "BarrackActor.generated.h"
 
 UCLASS()

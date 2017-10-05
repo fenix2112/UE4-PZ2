@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "MyCharacterUnit.generated.h"
 
@@ -23,9 +24,11 @@ public:
 	UPROPERTY()
 	UCharacterMovementComponent* test;
 
-	UPROPERTY()
-	UNavigationSystem* NavSys;
+	/*UPROPERTY()
+	UNavigationSystem* NavSys;*/
 
+	UPROPERTY()
+	UCharacterMovementComponent* Movement;
 
 protected:
 	// Called when the game starts or when spawned

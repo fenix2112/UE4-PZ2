@@ -12,8 +12,6 @@ ABarrackActor::ABarrackActor()
 
 	// SpawnPoint
 	FTransform SpawnPoint;
-	//SpawnPoint->SetTranslation(FVector(10, 0, 0));
-
 
 	// Create static mesh component and set it as Root
 	Mesh = CreateOptionalDefaultSubobject<UStaticMeshComponent>("MainMesh");
@@ -33,8 +31,10 @@ void ABarrackActor::BeginPlay()
 	Super::BeginPlay();
 
 	FTimerHandle Timer;
-	GetWorldTimerManager().SetTimer(Timer, this, &ABarrackActor::CreateUnit, 5.0f, true);
 
+	// TEMP
+	//GetWorldTimerManager().SetTimer(Timer, this, &ABarrackActor::CreateUnit, 5.0f, true);
+	CreateUnit();
 }
 
 // Called every frame
@@ -45,10 +45,10 @@ void ABarrackActor::Tick(float DeltaTime)
 }
 
 
-// Dinamycally add movig objects
+// Dynamically add moving objects
 void ABarrackActor::CreateUnit()
 {
-	FVector Location(0.0f, 0.0f, 0.0f);
+	FVector Location(100.0f, 100.0f, 100.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
 	FActorSpawnParameters SpawnInfo;
 	AMyCharacterUnit* Unit = GetWorld()->SpawnActor<AMyCharacterUnit>(Location, Rotation, SpawnInfo);

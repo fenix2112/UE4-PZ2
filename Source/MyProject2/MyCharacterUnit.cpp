@@ -7,11 +7,12 @@
 AMyCharacterUnit::AMyCharacterUnit()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	//PrimaryActorTick.bCanEverTick = true;
+
 	SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	MeshView = CreateOptionalDefaultSubobject<UStaticMeshComponent>("MainMesh");
-	ConstructorHelpers::FObjectFinder<UStaticMesh>LoadedMesh(TEXT("StaticMesh'/Game/Unit/bb8.bb8'"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh>LoadedMesh(TEXT("StaticMesh'/Game/Sphere.Sphere'"));//"StaticMesh'/Game/Unit/bb8.bb8'"));
 
 	if (LoadedMesh.Object)
 	{
@@ -19,24 +20,24 @@ AMyCharacterUnit::AMyCharacterUnit()
 	}
 	
 	RootComponent = MeshView;
-
-
 }
 
 // Called when the game starts or when spawned
 void AMyCharacterUnit::BeginPlay()
 {
 	Super::BeginPlay();
-    NavSys = GetWorld()->GetNavigationSystem();
+   // NavSys = GetWorld()->GetNavigationSystem();
 
-	if (NavSys )
+	/*if (NavSys )
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Cyan, FString("NavSys"));
+		
+		//NavSys->SimpleMoveToLocation(this->GetController(), FVector(300.0f,300.0f,300.0f));
+	}*/
 
-		NavSys->SimpleMoveToLocation(this->GetController(), FVector(300.0f,300.0f,300.0f));
-	}
-
-	AddMovementInput(FVector(10.0f, 0.0f, 0.0f), 5.0f);
+	Movement = GetCharacterMovement();
+	Movement->Activate(false);
+	
 
 }
 
@@ -45,9 +46,14 @@ void AMyCharacterUnit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime); 
 	
-	//FVector forward = GetWorld()->GetFirstPlayerController()->PlayerCameraManager->GetCameraRotation().Vector();
+	//FVector forward = this->GetTransform().GetTranslation();
 
-	
+	Movement->MoveSmooth(FVector(10.0f, 0.0f, 0.0f), 5.0f);
+
+	//	AddMovementInput(FVector(100.0f, 0.0f, 0.0f), 5.0f);
+	//NavSys->SimpleMoveToLocation(this->GetController(), FVector(300.0f, 300.0f, 300.0f));
+
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Cyan, FString::SanitizeFloat(this->GetActorTransform().GetLocation().X));
 
 	
 }
